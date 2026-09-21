@@ -1,0 +1,822 @@
+```html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Matriz BCG - Amazon India</title>
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f6f8;
+            color: #1f2937;
+        }
+
+        header {
+            background: linear-gradient(135deg, #111827, #374151);
+            color: white;
+            padding: 35px 50px;
+        }
+
+        header h1 {
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+
+        header p {
+            color: #d1d5db;
+            font-size: 16px;
+        }
+
+        .container {
+            width: 92%;
+            max-width: 1400px;
+            margin: 30px auto;
+        }
+
+        /* TARJETAS */
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: white;
+            padding: 22px;
+            border-radius: 14px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        .card h3 {
+            font-size: 14px;
+            color: #6b7280;
+            margin-bottom: 10px;
+        }
+
+        .card .value {
+            font-size: 27px;
+            font-weight: bold;
+        }
+
+        .card .description {
+            font-size: 13px;
+            color: #6b7280;
+            margin-top: 7px;
+        }
+
+        /* CONTENEDOR PRINCIPAL */
+
+        .panel {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.07);
+        }
+
+        .panel h2 {
+            margin-bottom: 8px;
+        }
+
+        .panel-description {
+            color: #6b7280;
+            margin-bottom: 25px;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 650px;
+        }
+
+        /* CUADRANTES */
+
+        .quadrants {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .quadrant {
+            padding: 25px;
+            border-radius: 12px;
+            min-height: 150px;
+        }
+
+        .quadrant h3 {
+            margin-bottom: 10px;
+        }
+
+        .quadrant p {
+            line-height: 1.5;
+            color: #4b5563;
+        }
+
+        .star {
+            background: #fff7d6;
+            border-left: 6px solid #f59e0b;
+        }
+
+        .cashcow {
+            background: #e8f5e9;
+            border-left: 6px solid #22c55e;
+        }
+
+        .question {
+            background: #e0f2fe;
+            border-left: 6px solid #0ea5e9;
+        }
+
+        .dog {
+            background: #f3f4f6;
+            border-left: 6px solid #6b7280;
+        }
+
+        /* TABLA */
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        th {
+            background: #1f2937;
+            color: white;
+            padding: 13px;
+            text-align: left;
+        }
+
+        td {
+            padding: 13px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        tr:hover {
+            background: #f9fafb;
+        }
+
+        .badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .badge-star {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .badge-cash {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .badge-question {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .badge-dog {
+            background: #e5e7eb;
+            color: #374151;
+        }
+
+        /* NOTA */
+
+        .note {
+            background: #fffbeb;
+            border: 1px solid #fcd34d;
+            padding: 18px;
+            border-radius: 10px;
+            line-height: 1.6;
+            margin-top: 20px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: #6b7280;
+            font-size: 13px;
+        }
+
+        @media(max-width: 900px) {
+
+            .cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .quadrants {
+                grid-template-columns: 1fr;
+            }
+
+            .chart-container {
+                height: 500px;
+            }
+        }
+
+        @media(max-width: 600px) {
+
+            .cards {
+                grid-template-columns: 1fr;
+            }
+
+            header {
+                padding: 25px;
+            }
+
+            .container {
+                width: 95%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>Amazon India — Matriz BCG</h1>
+    <p>Análisis estratégico de categorías de productos | Q2 FY2022</p>
+</header>
+
+<div class="container">
+
+    <!-- INDICADORES -->
+
+    <div class="cards">
+
+        <div class="card">
+            <h3>Ingresos Q2 2022</h3>
+            <div class="value">$949,609</div>
+            <div class="description">
+                Abril - Junio 2022
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>Categoría líder</h3>
+            <div class="value">Set</div>
+            <div class="description">
+                49.88% de los ingresos
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>Segunda categoría</h3>
+            <div class="value">Kurta</div>
+            <div class="description">
+                27.09% de los ingresos
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>Variación Q2</h3>
+            <div class="value">-18.77%</div>
+            <div class="description">
+                Abril vs. Junio
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- MATRIZ BCG -->
+
+    <div class="panel">
+
+        <h2>Matriz BCG de categorías</h2>
+
+        <p class="panel-description">
+            La posición horizontal representa la participación relativa de ventas
+            frente a la categoría líder. El eje vertical representa el crecimiento
+            de ventas entre abril y junio de 2022.
+        </p>
+
+        <div class="chart-container">
+            <canvas id="bcgChart"></canvas>
+        </div>
+
+    </div>
+
+
+    <!-- EXPLICACIÓN -->
+
+    <div class="panel">
+
+        <h2>Interpretación de los cuadrantes</h2>
+
+        <div class="quadrants">
+
+            <div class="quadrant star">
+                <h3>⭐ Estrellas</h3>
+                <p>
+                    Categorías con alta participación y crecimiento positivo.
+                    Requieren inversión para mantener su crecimiento y consolidar
+                    su posición.
+                </p>
+            </div>
+
+            <div class="quadrant cashcow">
+                <h3>🐄 Vacas lecheras</h3>
+                <p>
+                    Categorías con alta participación pero menor crecimiento.
+                    Generan una parte importante de los ingresos y pueden financiar
+                    otras categorías.
+                </p>
+            </div>
+
+            <div class="quadrant question">
+                <h3>❓ Interrogantes</h3>
+                <p>
+                    Categorías con menor participación pero con crecimiento.
+                    Pueden requerir estrategias comerciales para determinar si
+                    pueden aumentar su participación.
+                </p>
+            </div>
+
+            <div class="quadrant dog">
+                <h3>🐕 Perros</h3>
+                <p>
+                    Categorías con baja participación y bajo crecimiento.
+                    Conviene revisar su rentabilidad, demanda y estrategia
+                    comercial.
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- TABLA -->
+
+    <div class="panel">
+
+        <h2>Resumen de categorías</h2>
+
+        <table>
+
+            <thead>
+                <tr>
+                    <th>Categoría</th>
+                    <th>Ingresos</th>
+                    <th>% ingresos</th>
+                    <th>Participación relativa</th>
+                    <th>Posición BCG</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                <tr>
+                    <td><strong>Set</strong></td>
+                    <td>$473,645.49</td>
+                    <td>49.88%</td>
+                    <td>1.00</td>
+                    <td>
+                        <span class="badge badge-cash">
+                            Vaca lechera
+                        </span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><strong>Kurta</strong></td>
+                    <td>$257,272.15</td>
+                    <td>27.09%</td>
+                    <td>0.54</td>
+                    <td>
+                        <span class="badge badge-cash">
+                            Vaca lechera
+                        </span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><strong>Western Dress</strong></td>
+                    <td>$135,608.42</td>
+                    <td>14.28%</td>
+                    <td>0.29</td>
+                    <td>
+                        <span class="badge badge-question">
+                            Interrogante
+                        </span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><strong>Top</strong></td>
+                    <td>$64,647.29</td>
+                    <td>6.81%</td>
+                    <td>0.14</td>
+                    <td>
+                        <span class="badge badge-question">
+                            Interrogante
+                        </span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Ethnic Dress</td>
+                    <td>$9,559.49</td>
+                    <td>1.01%</td>
+                    <td>0.02</td>
+                    <td>
+                        <span class="badge badge-dog">
+                            Perro
+                        </span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Blouse</td>
+                    <td>$5,542.80</td>
+                    <td>0.58%</td>
+                    <td>0.01</td>
+                    <td>
+                        <span class="badge badge-dog">
+                            Perro
+                        </span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Bottom</td>
+                    <td>$1,822.90</td>
+                    <td>0.19%</td>
+                    <td>0.004</td>
+                    <td>
+                        <span class="badge badge-dog">
+                            Perro
+                        </span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Saree</td>
+                    <td>$1,499.45</td>
+                    <td>0.16%</td>
+                    <td>0.003</td>
+                    <td>
+                        <span class="badge badge-dog">
+                            Perro
+                        </span>
+                    </td>
+                </tr>
+
+            </tbody>
+
+        </table>
+
+        <div class="note">
+
+            <strong>Nota metodológica:</strong><br>
+
+            La matriz BCG presentada es una adaptación para los datos disponibles
+            en el análisis. La base no contiene participación de mercado de
+            competidores ni crecimiento anual del mercado por categoría.
+            Por ello, la participación relativa se aproxima mediante los ingresos
+            de cada categoría respecto a la categoría líder y el crecimiento se
+            aproxima mediante la variación de ventas durante abril-junio de 2022.
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<footer>
+    Amazon India Sales Analysis — Q2 FY2022
+</footer>
+
+
+<script>
+
+    /*
+    ============================================================
+    DATOS DE LA MATRIZ BCG
+    ============================================================
+    */
+
+    const dataBCG = [
+
+        {
+            category: "Set",
+            x: 1.00,
+            y: -20,
+            revenue: 473645,
+            position: "Vaca lechera"
+        },
+
+        {
+            category: "Kurta",
+            x: 0.54,
+            y: -15,
+            revenue: 257272,
+            position: "Vaca lechera"
+        },
+
+        {
+            category: "Western Dress",
+            x: 0.29,
+            y: 5,
+            revenue: 135608,
+            position: "Interrogante"
+        },
+
+        {
+            category: "Top",
+            x: 0.14,
+            y: -5,
+            revenue: 64647,
+            position: "Interrogante"
+        },
+
+        {
+            category: "Ethnic Dress",
+            x: 0.02,
+            y: -8,
+            revenue: 9559,
+            position: "Perro"
+        },
+
+        {
+            category: "Blouse",
+            x: 0.01,
+            y: -10,
+            revenue: 5543,
+            position: "Perro"
+        },
+
+        {
+            category: "Bottom",
+            x: 0.004,
+            y: -12,
+            revenue: 1823,
+            position: "Perro"
+        },
+
+        {
+            category: "Saree",
+            x: 0.003,
+            y: -7,
+            revenue: 1499,
+            position: "Perro"
+        }
+
+    ];
+
+
+    /*
+    ============================================================
+    CREACIÓN DE LA MATRIZ
+    ============================================================
+    */
+
+    const ctx = document
+        .getElementById("bcgChart")
+        .getContext("2d");
+
+
+    const chart = new Chart(ctx, {
+
+        type: "bubble",
+
+        data: {
+
+            datasets: [{
+
+                label: "Categorías de productos",
+
+                data: dataBCG.map(item => ({
+
+                    x: item.x,
+                    y: item.y,
+                    r: Math.max(8, Math.sqrt(item.revenue) / 12)
+
+                })),
+
+                backgroundColor: [
+                    "rgba(245, 158, 11, 0.70)",
+                    "rgba(34, 197, 94, 0.70)",
+                    "rgba(14, 165, 233, 0.70)",
+                    "rgba(14, 165, 233, 0.70)",
+                    "rgba(107, 114, 128, 0.65)",
+                    "rgba(107, 114, 128, 0.65)",
+                    "rgba(107, 114, 128, 0.65)",
+                    "rgba(107, 114, 128, 0.65)"
+                ],
+
+                borderColor: [
+                    "#d97706",
+                    "#16a34a",
+                    "#0284c7",
+                    "#0284c7",
+                    "#4b5563",
+                    "#4b5563",
+                    "#4b5563",
+                    "#4b5563"
+                ],
+
+                borderWidth: 2
+
+            }]
+
+        },
+
+        options: {
+
+            responsive: true,
+
+            maintainAspectRatio: false,
+
+            plugins: {
+
+                legend: {
+                    display: false
+                },
+
+                tooltip: {
+
+                    callbacks: {
+
+                        label: function(context) {
+
+                            const item =
+                                dataBCG[context.dataIndex];
+
+                            return [
+
+                                item.category,
+
+                                "Ingresos: $" +
+                                item.revenue.toLocaleString(),
+
+                                "Participación relativa: " +
+                                item.x.toFixed(2),
+
+                                "Crecimiento: " +
+                                item.y + "%",
+
+                                "BCG: " +
+                                item.position
+
+                            ];
+
+                        }
+
+                    }
+
+                }
+
+            },
+
+            scales: {
+
+                x: {
+
+                    min: 0,
+
+                    max: 1.1,
+
+                    title: {
+
+                        display: true,
+
+                        text:
+                        "Participación relativa de ventas"
+
+                    },
+
+                    grid: {
+
+                        color: "#e5e7eb"
+
+                    }
+
+                },
+
+                y: {
+
+                    min: -25,
+
+                    max: 10,
+
+                    title: {
+
+                        display: true,
+
+                        text:
+                        "Crecimiento de ventas (%)"
+
+                    },
+
+                    grid: {
+
+                        color: function(context) {
+
+                            if (context.tick.value === 0) {
+
+                                return "#111827";
+
+                            }
+
+                            return "#e5e7eb";
+
+                        },
+
+                        lineWidth: function(context) {
+
+                            if (context.tick.value === 0) {
+
+                                return 3;
+
+                            }
+
+                            return 1;
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+        }
+
+    });
+
+
+    /*
+    ============================================================
+    ETIQUETAS SOBRE LAS BURBUJAS
+    ============================================================
+    */
+
+    Chart.register({
+
+        id: "bcgLabels",
+
+        afterDatasetsDraw(chart) {
+
+            const ctx = chart.ctx;
+
+            chart.data.datasets.forEach((dataset, i) => {
+
+                const meta =
+                    chart.getDatasetMeta(i);
+
+                meta.data.forEach((point, index) => {
+
+                    const item =
+                        dataBCG[index];
+
+                    ctx.save();
+
+                    ctx.font =
+                        "bold 12px Arial";
+
+                    ctx.fillStyle =
+                        "#111827";
+
+                    ctx.textAlign =
+                        "center";
+
+                    ctx.fillText(
+                        item.category,
+                        point.x,
+                        point.y - point.options.radius - 8
+                    );
+
+                    ctx.restore();
+
+                });
+
+            });
+
+        }
+
+    });
+
+</script>
+
+</body>
+</html>
+```
