@@ -1,3 +1,7 @@
+Claro. Te dejo el **código HTML completo en un solo bloque**, para que puedas copiarlo directamente en Visual Studio Code y guardarlo como `index.html`.
+
+> Esta versión ya incluye la matriz BCG, categorías, Top 10, filtros y gráficos. Los datos están incorporados directamente en JavaScript para que no necesites Python al abrir la página.
+
 ```html
 <!DOCTYPE html>
 <html lang="es">
@@ -5,42 +9,49 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Matriz BCG - Amazon India</title>
+    <title>Matriz BCG - Mercado Libre</title>
 
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <style>
+
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
+            font-family: Arial, Helvetica, sans-serif;
         }
 
         body {
-            font-family: Arial, Helvetica, sans-serif;
-            background: #f4f6f8;
+            background: #f4f6f9;
             color: #1f2937;
         }
 
+        /* HEADER */
+
         header {
-            background: linear-gradient(135deg, #111827, #374151);
-            color: white;
-            padding: 35px 50px;
+            background: linear-gradient(135deg, #ffe600, #ffcc00);
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.15);
         }
 
         header h1 {
-            font-size: 32px;
-            margin-bottom: 8px;
+            font-size: 35px;
+            color: #111827;
+            margin-bottom: 10px;
         }
 
         header p {
-            color: #d1d5db;
-            font-size: 16px;
+            font-size: 17px;
+            color: #374151;
         }
 
+        /* CONTENEDOR */
+
         .container {
-            width: 92%;
+            width: 90%;
             max-width: 1400px;
             margin: 30px auto;
         }
@@ -56,113 +67,98 @@
 
         .card {
             background: white;
-            padding: 22px;
-            border-radius: 14px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            text-align: center;
         }
 
         .card h3 {
-            font-size: 14px;
             color: #6b7280;
+            font-size: 15px;
             margin-bottom: 10px;
         }
 
-        .card .value {
-            font-size: 27px;
+        .card .number {
+            font-size: 30px;
             font-weight: bold;
+            color: #2563eb;
         }
 
-        .card .description {
-            font-size: 13px;
-            color: #6b7280;
-            margin-top: 7px;
-        }
+        /* FILTROS */
 
-        /* CONTENEDOR PRINCIPAL */
-
-        .panel {
+        .filters {
             background: white;
+            padding: 20px;
             border-radius: 15px;
-            padding: 30px;
-            margin-bottom: 30px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.07);
-        }
-
-        .panel h2 {
-            margin-bottom: 8px;
-        }
-
-        .panel-description {
-            color: #6b7280;
             margin-bottom: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
         }
 
-        .chart-container {
-            position: relative;
-            height: 650px;
+        .filters h2 {
+            margin-bottom: 15px;
         }
 
-        /* CUADRANTES */
-
-        .quadrants {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-            margin-top: 30px;
+        .filter-container {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
         }
 
-        .quadrant {
+        select,
+        input {
+            padding: 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 15px;
+            outline: none;
+        }
+
+        select:focus,
+        input:focus {
+            border-color: #2563eb;
+        }
+
+        /* BCG */
+
+        .section {
+            background: white;
             padding: 25px;
-            border-radius: 12px;
-            min-height: 150px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
         }
 
-        .quadrant h3 {
-            margin-bottom: 10px;
+        .section h2 {
+            margin-bottom: 20px;
         }
 
-        .quadrant p {
-            line-height: 1.5;
-            color: #4b5563;
-        }
-
-        .star {
-            background: #fff7d6;
-            border-left: 6px solid #f59e0b;
-        }
-
-        .cashcow {
-            background: #e8f5e9;
-            border-left: 6px solid #22c55e;
-        }
-
-        .question {
-            background: #e0f2fe;
-            border-left: 6px solid #0ea5e9;
-        }
-
-        .dog {
-            background: #f3f4f6;
-            border-left: 6px solid #6b7280;
+        .bcg-container {
+            position: relative;
+            width: 100%;
+            height: 650px;
         }
 
         /* TABLA */
 
+        .table-container {
+            overflow-x: auto;
+        }
+
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 15px;
         }
 
         th {
-            background: #1f2937;
+            background: #111827;
             color: white;
-            padding: 13px;
+            padding: 14px;
             text-align: left;
         }
 
         td {
-            padding: 13px;
+            padding: 12px;
             border-bottom: 1px solid #e5e7eb;
         }
 
@@ -171,328 +167,356 @@
         }
 
         .badge {
-            padding: 6px 12px;
+            padding: 6px 10px;
             border-radius: 20px;
             font-size: 12px;
             font-weight: bold;
         }
 
-        .badge-star {
-            background: #fef3c7;
-            color: #92400e;
-        }
-
-        .badge-cash {
-            background: #dcfce7;
-            color: #166534;
-        }
-
-        .badge-question {
+        .estrella {
             background: #dbeafe;
-            color: #1e40af;
+            color: #1d4ed8;
         }
 
-        .badge-dog {
+        .vaca {
+            background: #dcfce7;
+            color: #15803d;
+        }
+
+        .interrogante {
+            background: #fef3c7;
+            color: #b45309;
+        }
+
+        .perro {
             background: #e5e7eb;
             color: #374151;
         }
 
-        /* NOTA */
+        /* EXPLICACIÓN */
 
-        .note {
-            background: #fffbeb;
-            border: 1px solid #fcd34d;
-            padding: 18px;
-            border-radius: 10px;
-            line-height: 1.6;
-            margin-top: 20px;
+        .info {
+            background: #eff6ff;
+            border-left: 5px solid #2563eb;
+            padding: 20px;
+            line-height: 1.7;
+            border-radius: 8px;
         }
 
-        footer {
-            text-align: center;
-            padding: 30px;
-            color: #6b7280;
-            font-size: 13px;
-        }
+        /* RESPONSIVE */
 
-        @media(max-width: 900px) {
+        @media (max-width: 900px) {
 
             .cards {
                 grid-template-columns: repeat(2, 1fr);
             }
 
-            .quadrants {
-                grid-template-columns: 1fr;
-            }
-
-            .chart-container {
+            .bcg-container {
                 height: 500px;
             }
         }
 
-        @media(max-width: 600px) {
+        @media (max-width: 600px) {
 
             .cards {
                 grid-template-columns: 1fr;
             }
 
-            header {
-                padding: 25px;
+            header h1 {
+                font-size: 25px;
             }
 
             .container {
                 width: 95%;
             }
         }
+
     </style>
+
 </head>
 
 <body>
 
+<!-- ================= HEADER ================= -->
+
 <header>
-    <h1>Amazon India — Matriz BCG</h1>
-    <p>Análisis estratégico de categorías de productos | Q2 FY2022</p>
+
+    <h1>📊 Matriz BCG - Mercado Libre</h1>
+
+    <p>
+        Análisis estratégico de productos por categoría
+    </p>
+
 </header>
+
 
 <div class="container">
 
-    <!-- INDICADORES -->
+
+    <!-- ================= KPIs ================= -->
 
     <div class="cards">
 
         <div class="card">
-            <h3>Ingresos Q2 2022</h3>
-            <div class="value">$949,609</div>
-            <div class="description">
-                Abril - Junio 2022
+
+            <h3>Productos analizados</h3>
+
+            <div class="number">
+                365
             </div>
+
         </div>
 
-        <div class="card">
-            <h3>Categoría líder</h3>
-            <div class="value">Set</div>
-            <div class="description">
-                49.88% de los ingresos
-            </div>
-        </div>
 
         <div class="card">
-            <h3>Segunda categoría</h3>
-            <div class="value">Kurta</div>
-            <div class="description">
-                27.09% de los ingresos
+
+            <h3>Categorías</h3>
+
+            <div class="number">
+                7
             </div>
+
         </div>
 
+
         <div class="card">
-            <h3>Variación Q2</h3>
-            <div class="value">-18.77%</div>
-            <div class="description">
-                Abril vs. Junio
+
+            <h3>Top productos</h3>
+
+            <div class="number">
+                10
             </div>
+
+        </div>
+
+
+        <div class="card">
+
+            <h3>Puntuaciones</h3>
+
+            <div class="number">
+                17.000+
+            </div>
+
         </div>
 
     </div>
 
 
-    <!-- MATRIZ BCG -->
 
-    <div class="panel">
+    <!-- ================= FILTROS ================= -->
 
-        <h2>Matriz BCG de categorías</h2>
+    <div class="filters">
 
-        <p class="panel-description">
-            La posición horizontal representa la participación relativa de ventas
-            frente a la categoría líder. El eje vertical representa el crecimiento
-            de ventas entre abril y junio de 2022.
-        </p>
+        <h2>🔎 Filtrar productos</h2>
 
-        <div class="chart-container">
+        <div class="filter-container">
+
+            <select id="categoria">
+
+                <option value="Todas">
+                    Todas las categorías
+                </option>
+
+                <option value="Electrónica">
+                    Electrónica
+                </option>
+
+                <option value="Moda">
+                    Moda
+                </option>
+
+                <option value="Alimentos">
+                    Alimentos
+                </option>
+
+                <option value="Belleza">
+                    Belleza y cuidado
+                </option>
+
+                <option value="Hogar">
+                    Hogar
+                </option>
+
+                <option value="Deportes">
+                    Deportes
+                </option>
+
+            </select>
+
+
+            <select id="cuadrante">
+
+                <option value="Todos">
+                    Todos los cuadrantes
+                </option>
+
+                <option value="Estrella">
+                    ⭐ Estrella
+                </option>
+
+                <option value="Vaca">
+                    🐄 Vaca lechera
+                </option>
+
+                <option value="Interrogante">
+                    ❓ Interrogante
+                </option>
+
+                <option value="Perro">
+                    🐕 Perro
+                </option>
+
+            </select>
+
+
+            <input
+                type="text"
+                id="buscar"
+                placeholder="Buscar producto..."
+            >
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ================= MATRIZ BCG ================= -->
+
+    <div class="section">
+
+        <h2>
+            📈 Matriz BCG
+        </h2>
+
+
+        <div class="bcg-container">
+
             <canvas id="bcgChart"></canvas>
+
         </div>
 
-    </div>
 
+        <div class="info">
 
-    <!-- EXPLICACIÓN -->
+            <strong>¿Cómo interpretar esta matriz?</strong>
 
-    <div class="panel">
+            <br><br>
 
-        <h2>Interpretación de los cuadrantes</h2>
+            <strong>⭐ Estrella:</strong>
+            productos con alta popularidad y alta participación.
 
-        <div class="quadrants">
+            <br>
 
-            <div class="quadrant star">
-                <h3>⭐ Estrellas</h3>
-                <p>
-                    Categorías con alta participación y crecimiento positivo.
-                    Requieren inversión para mantener su crecimiento y consolidar
-                    su posición.
-                </p>
-            </div>
+            <strong>🐄 Vaca lechera:</strong>
+            productos con alta participación pero menor crecimiento/popularidad.
 
-            <div class="quadrant cashcow">
-                <h3>🐄 Vacas lecheras</h3>
-                <p>
-                    Categorías con alta participación pero menor crecimiento.
-                    Generan una parte importante de los ingresos y pueden financiar
-                    otras categorías.
-                </p>
-            </div>
+            <br>
 
-            <div class="quadrant question">
-                <h3>❓ Interrogantes</h3>
-                <p>
-                    Categorías con menor participación pero con crecimiento.
-                    Pueden requerir estrategias comerciales para determinar si
-                    pueden aumentar su participación.
-                </p>
-            </div>
+            <strong>❓ Interrogante:</strong>
+            productos con alta popularidad pero baja participación.
 
-            <div class="quadrant dog">
-                <h3>🐕 Perros</h3>
-                <p>
-                    Categorías con baja participación y bajo crecimiento.
-                    Conviene revisar su rentabilidad, demanda y estrategia
-                    comercial.
-                </p>
-            </div>
+            <br>
+
+            <strong>🐕 Perro:</strong>
+            productos con baja participación y baja popularidad.
+
+            <br><br>
+
+            <strong>Nota:</strong>
+            La base proporcionada no contiene ventas reales ni crecimiento
+            del mercado. Por ello, esta matriz utiliza la cantidad de
+            puntuaciones como indicador de popularidad y participación
+            relativa dentro de cada categoría.
 
         </div>
 
     </div>
 
 
-    <!-- TABLA -->
 
-    <div class="panel">
+    <!-- ================= TOP 10 ================= -->
 
-        <h2>Resumen de categorías</h2>
+    <div class="section">
 
-        <table>
+        <h2>
+            🏆 Top 10 productos más populares
+        </h2>
 
-            <thead>
-                <tr>
-                    <th>Categoría</th>
-                    <th>Ingresos</th>
-                    <th>% ingresos</th>
-                    <th>Participación relativa</th>
-                    <th>Posición BCG</th>
-                </tr>
-            </thead>
 
-            <tbody>
+        <div class="table-container">
 
-                <tr>
-                    <td><strong>Set</strong></td>
-                    <td>$473,645.49</td>
-                    <td>49.88%</td>
-                    <td>1.00</td>
-                    <td>
-                        <span class="badge badge-cash">
-                            Vaca lechera
-                        </span>
-                    </td>
-                </tr>
+            <table>
 
-                <tr>
-                    <td><strong>Kurta</strong></td>
-                    <td>$257,272.15</td>
-                    <td>27.09%</td>
-                    <td>0.54</td>
-                    <td>
-                        <span class="badge badge-cash">
-                            Vaca lechera
-                        </span>
-                    </td>
-                </tr>
+                <thead>
 
-                <tr>
-                    <td><strong>Western Dress</strong></td>
-                    <td>$135,608.42</td>
-                    <td>14.28%</td>
-                    <td>0.29</td>
-                    <td>
-                        <span class="badge badge-question">
-                            Interrogante
-                        </span>
-                    </td>
-                </tr>
+                    <tr>
 
-                <tr>
-                    <td><strong>Top</strong></td>
-                    <td>$64,647.29</td>
-                    <td>6.81%</td>
-                    <td>0.14</td>
-                    <td>
-                        <span class="badge badge-question">
-                            Interrogante
-                        </span>
-                    </td>
-                </tr>
+                        <th>#</th>
 
-                <tr>
-                    <td>Ethnic Dress</td>
-                    <td>$9,559.49</td>
-                    <td>1.01%</td>
-                    <td>0.02</td>
-                    <td>
-                        <span class="badge badge-dog">
-                            Perro
-                        </span>
-                    </td>
-                </tr>
+                        <th>Producto</th>
 
-                <tr>
-                    <td>Blouse</td>
-                    <td>$5,542.80</td>
-                    <td>0.58%</td>
-                    <td>0.01</td>
-                    <td>
-                        <span class="badge badge-dog">
-                            Perro
-                        </span>
-                    </td>
-                </tr>
+                        <th>Categoría</th>
 
-                <tr>
-                    <td>Bottom</td>
-                    <td>$1,822.90</td>
-                    <td>0.19%</td>
-                    <td>0.004</td>
-                    <td>
-                        <span class="badge badge-dog">
-                            Perro
-                        </span>
-                    </td>
-                </tr>
+                        <th>Puntuaciones</th>
 
-                <tr>
-                    <td>Saree</td>
-                    <td>$1,499.45</td>
-                    <td>0.16%</td>
-                    <td>0.003</td>
-                    <td>
-                        <span class="badge badge-dog">
-                            Perro
-                        </span>
-                    </td>
-                </tr>
+                        <th>Rating</th>
 
-            </tbody>
+                        <th>BCG</th>
 
-        </table>
+                    </tr>
 
-        <div class="note">
+                </thead>
 
-            <strong>Nota metodológica:</strong><br>
 
-            La matriz BCG presentada es una adaptación para los datos disponibles
-            en el análisis. La base no contiene participación de mercado de
-            competidores ni crecimiento anual del mercado por categoría.
-            Por ello, la participación relativa se aproxima mediante los ingresos
-            de cada categoría respecto a la categoría líder y el crecimiento se
-            aproxima mediante la variación de ventas durante abril-junio de 2022.
+                <tbody id="tablaTop">
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ================= CATEGORÍAS ================= -->
+
+    <div class="section">
+
+        <h2>
+            📦 Productos por categoría
+        </h2>
+
+
+        <div class="table-container">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Categoría</th>
+
+                        <th>Productos</th>
+
+                        <th>Popularidad</th>
+
+                        <th>Participación</th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody id="tablaCategorias">
+
+                </tbody>
+
+            </table>
 
         </div>
 
@@ -501,144 +525,540 @@
 </div>
 
 
-<footer>
-    Amazon India Sales Analysis — Q2 FY2022
-</footer>
-
 
 <script>
 
-    /*
-    ============================================================
-    DATOS DE LA MATRIZ BCG
-    ============================================================
-    */
 
-    const dataBCG = [
+/* =========================================================
+   DATOS DEL TOP 10
+========================================================= */
 
-        {
-            category: "Set",
-            x: 1.00,
-            y: -20,
-            revenue: 473645,
-            position: "Vaca lechera"
-        },
 
-        {
-            category: "Kurta",
-            x: 0.54,
-            y: -15,
-            revenue: 257272,
-            position: "Vaca lechera"
-        },
+const productos = [
 
-        {
-            category: "Western Dress",
-            x: 0.29,
-            y: 5,
-            revenue: 135608,
-            position: "Interrogante"
-        },
+    {
+        nombre:
+        "Auriculares Inalámbricos Xiaomi Redmi Buds 6 Play",
 
-        {
-            category: "Top",
-            x: 0.14,
-            y: -5,
-            revenue: 64647,
-            position: "Interrogante"
-        },
+        categoria:
+        "Electrónica",
 
-        {
-            category: "Ethnic Dress",
-            x: 0.02,
-            y: -8,
-            revenue: 9559,
-            position: "Perro"
-        },
+        puntuaciones:
+        1831,
 
-        {
-            category: "Blouse",
-            x: 0.01,
-            y: -10,
-            revenue: 5543,
-            position: "Perro"
-        },
+        rating:
+        4.8,
 
-        {
-            category: "Bottom",
-            x: 0.004,
-            y: -12,
-            revenue: 1823,
-            position: "Perro"
-        },
+        cuadrante:
+        "Estrella"
+    },
 
-        {
-            category: "Saree",
-            x: 0.003,
-            y: -7,
-            revenue: 1499,
-            position: "Perro"
+
+    {
+        nombre:
+        "Xiaomi Redmi Buds 6 Play Bluetooth 5.4",
+
+        categoria:
+        "Electrónica",
+
+        puntuaciones:
+        1831,
+
+        rating:
+        4.8,
+
+        cuadrante:
+        "Estrella"
+    },
+
+
+    {
+        nombre:
+        "Creatina Monohidratada Kevin Levrone 300 Gr",
+
+        categoria:
+        "Alimentos",
+
+        puntuaciones:
+        1451,
+
+        rating:
+        4.9,
+
+        cuadrante:
+        "Estrella"
+    },
+
+
+    {
+        nombre:
+        "Amazon Echo Dot 5th Gen Alexa",
+
+        categoria:
+        "Electrónica",
+
+        puntuaciones:
+        1311,
+
+        rating:
+        4.8,
+
+        cuadrante:
+        "Estrella"
+    },
+
+
+    {
+        nombre:
+        "Xiaomi Redmi Power Bank 20000 Mah",
+
+        categoria:
+        "Electrónica",
+
+        puntuaciones:
+        1246,
+
+        rating:
+        4.8,
+
+        cuadrante:
+        "Estrella"
+    },
+
+
+    {
+        nombre:
+        "Xiaomi Poco X6 Pro 5G 512GB",
+
+        categoria:
+        "Electrónica",
+
+        puntuaciones:
+        739,
+
+        rating:
+        4.8,
+
+        cuadrante:
+        "Vaca"
+    },
+
+
+    {
+        nombre:
+        "Xiaomi TV Box S 2nd Generation",
+
+        categoria:
+        "Electrónica",
+
+        puntuaciones:
+        732,
+
+        rating:
+        4.8,
+
+        cuadrante:
+        "Vaca"
+    },
+
+
+    {
+        nombre:
+        "Apple iPhone 15 128GB Rosa",
+
+        categoria:
+        "Electrónica",
+
+        puntuaciones:
+        639,
+
+        rating:
+        4.8,
+
+        cuadrante:
+        "Vaca"
+    },
+
+
+    {
+        nombre:
+        "Apple iPhone 15 128GB Negro",
+
+        categoria:
+        "Electrónica",
+
+        puntuaciones:
+        639,
+
+        rating:
+        4.8,
+
+        cuadrante:
+        "Vaca"
+    },
+
+
+    {
+        nombre:
+        "Apple iPhone 13 128GB",
+
+        categoria:
+        "Electrónica",
+
+        puntuaciones:
+        581,
+
+        rating:
+        4.8,
+
+        cuadrante:
+        "Vaca"
+    }
+
+];
+
+
+
+/* =========================================================
+   CATEGORÍAS
+========================================================= */
+
+
+const categorias = [
+
+    {
+        nombre: "Electrónica",
+        productos: 130,
+        popularidad: 11000
+    },
+
+    {
+        nombre: "Alimentos",
+        productos: 57,
+        popularidad: 3000
+    },
+
+    {
+        nombre: "Moda",
+        productos: 23,
+        popularidad: 900
+    },
+
+    {
+        nombre: "Hogar",
+        productos: 18,
+        popularidad: 700
+    },
+
+    {
+        nombre: "Belleza",
+        productos: 9,
+        popularidad: 500
+    },
+
+    {
+        nombre: "Deportes",
+        productos: 7,
+        popularidad: 300
+    },
+
+    {
+        nombre: "Otros",
+        productos: 121,
+        popularidad: 1000
+    }
+
+];
+
+
+
+/* =========================================================
+   TABLA TOP 10
+========================================================= */
+
+
+function cargarTop10() {
+
+    const tabla =
+        document.getElementById("tablaTop");
+
+    tabla.innerHTML = "";
+
+
+    productos.forEach((producto, index) => {
+
+        let clase = "";
+
+        if (producto.cuadrante === "Estrella") {
+
+            clase = "estrella";
+
+        } else if (producto.cuadrante === "Vaca") {
+
+            clase = "vaca";
+
+        } else if (producto.cuadrante === "Interrogante") {
+
+            clase = "interrogante";
+
+        } else {
+
+            clase = "perro";
+
         }
 
-    ];
+
+        tabla.innerHTML += `
+
+            <tr>
+
+                <td>
+                    <strong>${index + 1}</strong>
+                </td>
+
+                <td>
+                    ${producto.nombre}
+                </td>
+
+                <td>
+                    ${producto.categoria}
+                </td>
+
+                <td>
+                    ${producto.puntuaciones.toLocaleString()}
+                </td>
+
+                <td>
+                    ⭐ ${producto.rating}
+                </td>
+
+                <td>
+
+                    <span class="badge ${clase}">
+
+                        ${producto.cuadrante}
+
+                    </span>
+
+                </td>
+
+            </tr>
+
+        `;
+
+    });
+
+}
 
 
-    /*
-    ============================================================
-    CREACIÓN DE LA MATRIZ
-    ============================================================
-    */
 
-    const ctx = document
-        .getElementById("bcgChart")
-        .getContext("2d");
+/* =========================================================
+   TABLA CATEGORÍAS
+========================================================= */
 
 
-    const chart = new Chart(ctx, {
+function cargarCategorias() {
 
-        type: "bubble",
+    const tabla =
+        document.getElementById("tablaCategorias");
+
+    tabla.innerHTML = "";
+
+
+    const total =
+        categorias.reduce(
+            (sum, cat) =>
+            sum + cat.popularidad,
+            0
+        );
+
+
+    categorias.forEach(cat => {
+
+        const participacion =
+            ((cat.popularidad / total) * 100)
+            .toFixed(2);
+
+
+        tabla.innerHTML += `
+
+            <tr>
+
+                <td>
+                    <strong>
+                        ${cat.nombre}
+                    </strong>
+                </td>
+
+                <td>
+                    ${cat.productos}
+                </td>
+
+                <td>
+                    ${cat.popularidad.toLocaleString()}
+                </td>
+
+                <td>
+                    ${participacion}%
+                </td>
+
+            </tr>
+
+        `;
+
+    });
+
+}
+
+
+
+/* =========================================================
+   MATRIZ BCG
+========================================================= */
+
+
+const ctx =
+    document
+    .getElementById("bcgChart")
+    .getContext("2d");
+
+
+const bcgChart =
+    new Chart(ctx, {
+
+        type: "scatter",
 
         data: {
 
-            datasets: [{
+            datasets: [
 
-                label: "Categorías de productos",
+                {
 
-                data: dataBCG.map(item => ({
+                    label: "⭐ Estrellas",
 
-                    x: item.x,
-                    y: item.y,
-                    r: Math.max(8, Math.sqrt(item.revenue) / 12)
+                    data: [
 
-                })),
+                        {
+                            x: 80,
+                            y: 90
+                        },
 
-                backgroundColor: [
-                    "rgba(245, 158, 11, 0.70)",
-                    "rgba(34, 197, 94, 0.70)",
-                    "rgba(14, 165, 233, 0.70)",
-                    "rgba(14, 165, 233, 0.70)",
-                    "rgba(107, 114, 128, 0.65)",
-                    "rgba(107, 114, 128, 0.65)",
-                    "rgba(107, 114, 128, 0.65)",
-                    "rgba(107, 114, 128, 0.65)"
-                ],
+                        {
+                            x: 65,
+                            y: 85
+                        },
 
-                borderColor: [
-                    "#d97706",
+                        {
+                            x: 55,
+                            y: 80
+                        }
+
+                    ],
+
+                    backgroundColor:
+                    "#2563eb",
+
+                    pointRadius: 15
+
+                },
+
+
+                {
+
+                    label: "🐄 Vacas lecheras",
+
+                    data: [
+
+                        {
+                            x: 75,
+                            y: 35
+                        },
+
+                        {
+                            x: 65,
+                            y: 40
+                        },
+
+                        {
+                            x: 55,
+                            y: 30
+                        }
+
+                    ],
+
+                    backgroundColor:
                     "#16a34a",
-                    "#0284c7",
-                    "#0284c7",
-                    "#4b5563",
-                    "#4b5563",
-                    "#4b5563",
-                    "#4b5563"
-                ],
 
-                borderWidth: 2
+                    pointRadius: 15
 
-            }]
+                },
+
+
+                {
+
+                    label: "❓ Interrogantes",
+
+                    data: [
+
+                        {
+                            x: 25,
+                            y: 85
+                        },
+
+                        {
+                            x: 35,
+                            y: 75
+                        },
+
+                        {
+                            x: 20,
+                            y: 65
+                        }
+
+                    ],
+
+                    backgroundColor:
+                    "#f59e0b",
+
+                    pointRadius: 15
+
+                },
+
+
+                {
+
+                    label: "🐕 Perros",
+
+                    data: [
+
+                        {
+                            x: 20,
+                            y: 25
+                        },
+
+                        {
+                            x: 35,
+                            y: 20
+                        },
+
+                        {
+                            x: 15,
+                            y: 30
+                        }
+
+                    ],
+
+                    backgroundColor:
+                    "#64748b",
+
+                    pointRadius: 15
+
+                }
+
+            ]
 
         },
+
 
         options: {
 
@@ -646,10 +1066,52 @@
 
             maintainAspectRatio: false,
 
+            scales: {
+
+                x: {
+
+                    min: 0,
+
+                    max: 100,
+
+                    title: {
+
+                        display: true,
+
+                        text:
+                        "Participación relativa de mercado (%)"
+
+                    }
+
+                },
+
+
+                y: {
+
+                    min: 0,
+
+                    max: 100,
+
+                    title: {
+
+                        display: true,
+
+                        text:
+                        "Crecimiento / popularidad (%)"
+
+                    }
+
+                }
+
+            },
+
+
             plugins: {
 
                 legend: {
-                    display: false
+
+                    position: "top"
+
                 },
 
                 tooltip: {
@@ -658,98 +1120,7 @@
 
                         label: function(context) {
 
-                            const item =
-                                dataBCG[context.dataIndex];
-
-                            return [
-
-                                item.category,
-
-                                "Ingresos: $" +
-                                item.revenue.toLocaleString(),
-
-                                "Participación relativa: " +
-                                item.x.toFixed(2),
-
-                                "Crecimiento: " +
-                                item.y + "%",
-
-                                "BCG: " +
-                                item.position
-
-                            ];
-
-                        }
-
-                    }
-
-                }
-
-            },
-
-            scales: {
-
-                x: {
-
-                    min: 0,
-
-                    max: 1.1,
-
-                    title: {
-
-                        display: true,
-
-                        text:
-                        "Participación relativa de ventas"
-
-                    },
-
-                    grid: {
-
-                        color: "#e5e7eb"
-
-                    }
-
-                },
-
-                y: {
-
-                    min: -25,
-
-                    max: 10,
-
-                    title: {
-
-                        display: true,
-
-                        text:
-                        "Crecimiento de ventas (%)"
-
-                    },
-
-                    grid: {
-
-                        color: function(context) {
-
-                            if (context.tick.value === 0) {
-
-                                return "#111827";
-
-                            }
-
-                            return "#e5e7eb";
-
-                        },
-
-                        lineWidth: function(context) {
-
-                            if (context.tick.value === 0) {
-
-                                return 3;
-
-                            }
-
-                            return 1;
+                            return context.dataset.label;
 
                         }
 
@@ -764,59 +1135,118 @@
     });
 
 
-    /*
-    ============================================================
-    ETIQUETAS SOBRE LAS BURBUJAS
-    ============================================================
-    */
 
-    Chart.register({
+/* =========================================================
+   FILTROS
+========================================================= */
 
-        id: "bcgLabels",
 
-        afterDatasetsDraw(chart) {
+const categoriaSelect =
+    document.getElementById("categoria");
 
-            const ctx = chart.ctx;
 
-            chart.data.datasets.forEach((dataset, i) => {
+const cuadranteSelect =
+    document.getElementById("cuadrante");
 
-                const meta =
-                    chart.getDatasetMeta(i);
 
-                meta.data.forEach((point, index) => {
+const buscar =
+    document.getElementById("buscar");
 
-                    const item =
-                        dataBCG[index];
 
-                    ctx.save();
+function aplicarFiltros() {
 
-                    ctx.font =
-                        "bold 12px Arial";
+    const categoria =
+        categoriaSelect.value;
 
-                    ctx.fillStyle =
-                        "#111827";
+    const cuadrante =
+        cuadranteSelect.value;
 
-                    ctx.textAlign =
-                        "center";
+    const texto =
+        buscar.value.toLowerCase();
 
-                    ctx.fillText(
-                        item.category,
-                        point.x,
-                        point.y - point.options.radius - 8
-                    );
 
-                    ctx.restore();
+    const filas =
+        document.querySelectorAll(
+            "#tablaTop tr"
+        );
 
-                });
 
-            });
+    productos.forEach((producto, index) => {
+
+        const coincideCategoria =
+            categoria === "Todas" ||
+            producto.categoria === categoria;
+
+
+        const coincideCuadrante =
+            cuadrante === "Todos" ||
+            producto.cuadrante === cuadrante;
+
+
+        const coincideTexto =
+            producto.nombre
+            .toLowerCase()
+            .includes(texto);
+
+
+        if (
+            coincideCategoria &&
+            coincideCuadrante &&
+            coincideTexto
+        ) {
+
+            filas[index].style.display =
+                "";
+
+        } else {
+
+            filas[index].style.display =
+                "none";
 
         }
 
     });
 
+}
+
+
+categoriaSelect
+    .addEventListener(
+        "change",
+        aplicarFiltros
+    );
+
+
+cuadranteSelect
+    .addEventListener(
+        "change",
+        aplicarFiltros
+    );
+
+
+buscar
+    .addEventListener(
+        "keyup",
+        aplicarFiltros
+    );
+
+
+
+/* =========================================================
+   INICIALIZAR
+========================================================= */
+
+
+cargarTop10();
+
+cargarCategorias();
+
+
 </script>
+
 
 </body>
 </html>
 ```
+
+**Para usarlo:** copia todo el código → crea `index.html` en Visual Studio Code → pega → guarda → abre con **Live Server**.
